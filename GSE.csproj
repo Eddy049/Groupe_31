@@ -67,6 +67,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="EmploiDuTemps.aspx" />
     <Content Include="Gestion_de_salle.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -75,13 +76,22 @@
       <DependentUpon>Gestion_de_salle.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
+	  <Compile Include="EmploiDuTemps.aspx.cs">
+		  <DependentUpon>EmploiDuTemps.aspx</DependentUpon>
+		  <SubType>ASPXCodeBehind</SubType>
+	  </Compile>
     <Compile Include="Gestion_de_salle.aspx.designer.cs">
       <DependentUpon>Gestion_de_salle.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Site.Master.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+    <Content Include="Site.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
