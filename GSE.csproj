@@ -72,14 +72,17 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EmploiDuTemps.aspx.designer.cs">
+      <DependentUpon>EmploiDuTemps.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Gestion_de_salle.aspx.cs">
       <DependentUpon>Gestion_de_salle.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-	  <Compile Include="EmploiDuTemps.aspx.cs">
-		  <DependentUpon>EmploiDuTemps.aspx</DependentUpon>
-		  <SubType>ASPXCodeBehind</SubType>
-	  </Compile>
+    <Compile Include="EmploiDuTemps.aspx.cs">
+      <DependentUpon>EmploiDuTemps.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
     <Compile Include="Gestion_de_salle.aspx.designer.cs">
       <DependentUpon>Gestion_de_salle.aspx</DependentUpon>
     </Compile>

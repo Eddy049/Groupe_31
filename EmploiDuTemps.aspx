@@ -5,7 +5,6 @@
     Inherits="GSE.EmploiDuTemps" %>
 
 <asp:Content ID="HeadContent" ContentPlaceHolderID="HeadContent" runat="server">
-    <!-- FullCalendar CSS -->
     <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" 
           rel="stylesheet" />
     <style>
@@ -35,7 +34,6 @@
         Emploi du Temps
     </h2>
 
-    <!-- Filtres -->
     <div class="card mb-4 shadow-sm">
         <div class="card-body">
             <div class="row g-3">
@@ -45,7 +43,6 @@
                         CssClass="form-select"
                         AutoPostBack="true" 
                         OnSelectedIndexChanged="ddlFiliere_SelectedIndexChanged">
-                        <asp:ListItem Value="0">-- Toutes les filières --</asp:ListItem>
                     </asp:DropDownList>
                 </div>
                 <div class="col-md-4">
@@ -54,7 +51,6 @@
                         CssClass="form-select"
                         AutoPostBack="true"
                         OnSelectedIndexChanged="ddlProfesseur_SelectedIndexChanged">
-                        <asp:ListItem Value="0">-- Tous les professeurs --</asp:ListItem>
                     </asp:DropDownList>
                 </div>
                 <div class="col-md-4">
@@ -63,17 +59,14 @@
                         CssClass="form-select"
                         AutoPostBack="true"
                         OnSelectedIndexChanged="ddlSalle_SelectedIndexChanged">
-                        <asp:ListItem Value="0">-- Toutes les salles --</asp:ListItem>
                     </asp:DropDownList>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Calendrier -->
     <div id="calendar"></div>
 
-    <!-- Modal ajout cours -->
     <div class="modal fade" id="modalCours" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -136,7 +129,6 @@
 </asp:Content>
 
 <asp:Content ID="ScriptContent" ContentPlaceHolderID="ScriptContent" runat="server">
-    <!-- FullCalendar JS -->
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js">
     </script>
     <script>
@@ -162,7 +154,18 @@
                         document.getElementById('modalCours'));
                     modal.show();
                 },
-                events: '/EmploiDuTemps.aspx/GetCours',
+                events: function(info, successCallback, failureCallback) {
+                    fetch('/EmploiDuTemps.aspx/GetCours', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({})
+                    })
+                    .then(r => r.json())
+                    .then(data => {
+                        successCallback(JSON.parse(data.d));
+                    })
+                    .catch(err => failureCallback(err));
+                },
                 eventClick: function (info) {
                     alert('Cours : ' + info.event.title + 
                           '\nSalle : ' + info.event.extendedProps.salle +
