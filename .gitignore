@@ -11,3 +11,16 @@ bin/
 DocumentLayout.json
 VSWorkspaceState.json
 slnx.sqlite
+# Visual Studio
+.vs/
+*.user
+*.suo
+
+# Build
+obj/
+bin/
+
+# Cache
+*.cache
+*.backup.json
+DocumentLayout.json
