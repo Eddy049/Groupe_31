@@ -1,4 +1,5 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="GSE.Site" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" 
+    CodeBehind="Site.master.cs" Inherits="GSE.Site" %>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -6,111 +7,410 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Gestion Emploi du Temps</title>
-
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
-
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     <style>
-        body {
-            background-color: #f8f9fa;
-            font-family: 'Segoe UI', sans-serif;
+        * {
+            font-family: 'Poppins', sans-serif;
         }
+        /* FULLCALENDAR AMELIORE */
+.fc-daygrid-event {
+    border-radius: 6px !important;
+    padding: 3px 6px !important;
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    border: none !important;
+    margin-bottom: 2px !important;
+}
+.fc-daygrid-event-dot {
+    display: none !important;
+}
+.fc-event-title {
+    font-size: 0.82rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.2px !important;
+}
+.fc-event-time {
+    font-size: 0.78rem !important;
+    font-weight: 500 !important;
+    opacity: 0.9 !important;
+}
+.fc-col-header-cell-cushion {
+    font-size: 0.88rem !important;
+    font-weight: 600 !important;
+    color: #1a237e !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+    text-decoration: none !important;
+}
+.fc-daygrid-day-number {
+    font-size: 0.9rem !important;
+    font-weight: 500 !important;
+    color: #334155 !important;
+    text-decoration: none !important;
+}
+.fc-toolbar-title {
+    font-size: 1.3rem !important;
+    font-weight: 700 !important;
+    color: #1a237e !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+.fc-button {
+    font-size: 0.85rem !important;
+    font-weight: 600 !important;
+    border-radius: 8px !important;
+    padding: 7px 14px !important;
+    font-family: 'Poppins', sans-serif !important;
+}
+.fc-button-primary {
+    background: linear-gradient(135deg, #1a237e, #3949ab) !important;
+    border: none !important;
+}
+.fc-button-primary:not(.fc-button-active):hover {
+    background: linear-gradient(135deg, #283593, #3f51b5) !important;
+    transform: translateY(-1px) !important;
+}
+.fc-button-active {
+    background: linear-gradient(135deg, #0d1b3e, #1a237e) !important;
+    box-shadow: inset 0 2px 6px rgba(0,0,0,0.2) !important;
+}
+.fc-day-today {
+    background: #eef2ff !important;
+}
+.fc-day-today .fc-daygrid-day-number {
+    background: #1a237e !important;
+    color: white !important;
+    border-radius: 50% !important;
+    width: 28px !important;
+    height: 28px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+}
+.fc-daygrid-day-frame {
+    min-height: 90px !important;
+}
+.fc th {
+    background: #f8faff !important;
+    border-bottom: 2px solid #e2e8f0 !important;
+}
+.fc-scrollgrid {
+    border-radius: 12px !important;
+    overflow: hidden !important;
+    border: 1px solid #e2e8f0 !important;
+}
+        body {
+            background-color: #f0f4ff;
+            color: #1e293b;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+
+        /* NAVBAR */
         .navbar {
-            background: linear-gradient(135deg, #1a237e, #283593);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            background: linear-gradient(135deg, #1a237e 0%, #283593 100%);
+            box-shadow: 0 4px 20px rgba(26, 35, 126, 0.3);
+            padding: 14px 0;
         }
         .navbar-brand {
             font-weight: 700;
-            font-size: 1.3rem;
+            font-size: 1.25rem;
             color: white !important;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 0.3px;
+        }
+        .navbar-brand .brand-icon {
+            background: rgba(255,255,255,0.2);
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
         }
         .nav-link {
             color: rgba(255,255,255,0.85) !important;
             font-weight: 500;
-            transition: color 0.2s;
+            font-size: 0.92rem;
+            padding: 8px 14px !important;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 7px;
+            letter-spacing: 0.2px;
         }
         .nav-link:hover {
-            color: #FFD700 !important;
+            color: white !important;
+            background: rgba(255,255,255,0.15);
         }
         .nav-link.active {
-            color: #FFD700 !important;
-            border-bottom: 2px solid #FFD700;
+            color: white !important;
+            background: rgba(255,255,255,0.2);
         }
+
+        /* CONTENU */
         .main-content {
             min-height: calc(100vh - 130px);
-            padding: 30px 0;
+            padding: 35px 0;
         }
+
+        /* TITRES */
+        .page-title {
+            color: #1a237e;
+            font-weight: 700;
+            font-size: 1.75rem;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            letter-spacing: -0.3px;
+        }
+        .page-title i {
+            background: linear-gradient(135deg, #1a237e, #3949ab);
+            color: white;
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .page-subtitle {
+            color: #64748b;
+            font-size: 0.92rem;
+            margin-bottom: 28px;
+            font-weight: 400;
+        }
+
+        /* CARDS */
+        .card {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+        }
+        .card-header {
+            background: linear-gradient(135deg, #f8faff, #eef2ff);
+            border-bottom: 1px solid #e2e8f0;
+            border-radius: 16px 16px 0 0 !important;
+            padding: 16px 20px;
+            font-weight: 600;
+            font-size: 1rem;
+            color: #1a237e;
+        }
+
+        /* FORM */
+        .form-label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: #475569;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 6px;
+        }
+        .form-control, .form-select {
+            border: 1.5px solid #e2e8f0;
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: 0.93rem;
+            color: #1e293b;
+            transition: all 0.2s;
+            background: #fafbff;
+        }
+        .form-control:focus, .form-select:focus {
+            border-color: #3949ab;
+            box-shadow: 0 0 0 3px rgba(57, 73, 171, 0.1);
+            background: white;
+        }
+        .form-control::placeholder {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* BOUTONS */
+        .btn-primary {
+            background: linear-gradient(135deg, #1a237e, #3949ab);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.93rem;
+            padding: 10px 22px;
+            letter-spacing: 0.2px;
+            transition: all 0.2s;
+        }
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(26, 35, 126, 0.35);
+        }
+        .btn-success {
+            background: linear-gradient(135deg, #059669, #10b981);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.93rem;
+        }
+        .btn-danger {
+            background: linear-gradient(135deg, #dc2626, #ef4444);
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.93rem;
+        }
+        .btn-secondary {
+            background: #e2e8f0;
+            border: none;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.93rem;
+            color: #475569;
+        }
+
+        /* MODAL */
+        .modal-content {
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+        }
+        .modal-header {
+            background: linear-gradient(135deg, #1a237e, #3949ab);
+            border-radius: 16px 16px 0 0;
+            padding: 20px 24px;
+        }
+        .modal-title {
+            font-size: 1.05rem;
+            font-weight: 600;
+            letter-spacing: 0.2px;
+        }
+        .modal-body {
+            padding: 24px;
+        }
+        .modal-footer {
+            border-top: 1px solid #e2e8f0;
+            padding: 16px 24px;
+        }
+
+        /* TABLE */
+        .table {
+            font-size: 0.9rem;
+        }
+        .table thead th {
+            font-weight: 600;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            color: #64748b;
+            border-bottom: 2px solid #e2e8f0;
+            padding: 12px 16px;
+        }
+        .table tbody td {
+            padding: 12px 16px;
+            color: #334155;
+            vertical-align: middle;
+        }
+
+        /* BADGES */
+        .badge {
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 0.75rem;
+            padding: 5px 10px;
+            letter-spacing: 0.3px;
+        }
+
+        /* FOOTER */
         footer {
             background: linear-gradient(135deg, #1a237e, #283593);
-            color: rgba(255,255,255,0.8);
-            padding: 15px 0;
+            color: rgba(255,255,255,0.6);
+            padding: 18px 0;
             text-align: center;
             font-size: 0.85rem;
+            font-weight: 400;
+            letter-spacing: 0.2px;
+        }
+        footer span {
+            color: #FFD700;
+            font-weight: 600;
+        }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #f1f5f9; }
+        ::-webkit-scrollbar-thumb { 
+            background: #3949ab; 
+            border-radius: 3px; 
         }
     </style>
-
     <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
 </head>
 <body>
 
-    <form id="formPrincipal" runat="server">
-
-        <nav class="navbar navbar-expand-lg">
-            <div class="container">
-                <a class="navbar-brand" href="~/Default.aspx" runat="server">
-                    <i class="fas fa-calendar-alt me-2"></i>
-                    Emploi du Temps — Université
-                </a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="collapse navbar-collapse" id="navMenu">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="~/EmploiDuTemps.aspx" runat="server">
-                                <i class="fas fa-calendar-week me-1"></i>Emploi du temps
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="~/Dashboard.aspx" runat="server">
-                                <i class="fas fa-chart-bar me-1"></i>Dashboard
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="~/Salles.aspx" runat="server">
-                                <i class="fas fa-door-open me-1"></i>Salles
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="~/Professeurs.aspx" runat="server">
-                                <i class="fas fa-chalkboard-teacher me-1"></i>Professeurs
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="~/Filieres.aspx" runat="server">
-                                <i class="fas fa-graduation-cap me-1"></i>Filières
-                            </a>
-                        </li>
-                    </ul>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container">
+            <a class="navbar-brand" href="~/EmploiDuTemps.aspx" runat="server">
+                <div class="brand-icon">
+                    <i class="fas fa-calendar-alt"></i>
                 </div>
+                Emploi du Temps
+            </a>
+            <button class="navbar-toggler border-0" type="button" 
+                    data-bs-toggle="collapse" data-bs-target="#navMenu">
+                <i class="fas fa-bars text-white"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navMenu">
+                <ul class="navbar-nav ms-auto gap-1">
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/EmploiDuTemps.aspx" runat="server">
+                            <i class="fas fa-calendar-week"></i> Emploi du temps
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/Dashboard.aspx" runat="server">
+                            <i class="fas fa-chart-bar"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/Salles.aspx" runat="server">
+                            <i class="fas fa-door-open"></i> Salles
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/Professeurs.aspx" runat="server">
+                            <i class="fas fa-chalkboard-teacher"></i> Professeurs
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="~/Filieres.aspx" runat="server">
+                            <i class="fas fa-graduation-cap"></i> Filières
+                        </a>
+                    </li>
+                </ul>
             </div>
-        </nav>
+        </div>
+    </nav>
 
+    <form id="form1" runat="server">
         <div class="main-content">
             <div class="container">
                 <asp:ContentPlaceHolder ID="MainContent" runat="server" />
             </div>
         </div>
+    </form>
 
-        <footer>
-            <div class="container">
-                <i class="fas fa-university me-2"></i>
-                Système de Gestion d'Emploi du Temps — Groupe 31 &copy; 2025
-            </div>
-        </footer>
+    <footer>
+        <div class="container">
+            <i class="fas fa-university me-2"></i>
+            Système de Gestion d'Emploi du Temps — 
+            <span>Groupe 31</span> &copy; 2025
+        </div>
+    </footer>
 
-    </form> <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <asp:ContentPlaceHolder ID="ScriptContent" runat="server" />
-
 </body>
 </html>
