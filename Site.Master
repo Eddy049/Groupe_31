@@ -1,5 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" 
-    CodeBehind="Site.master.cs" Inherits="GSE.Site" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="GSE.Site" %>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -7,25 +6,29 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>EMIT — Gestion Emploi du Temps</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+    
+    <link href="<%= ResolveUrl("~/Content/bootstrap.min.css") %>" rel="stylesheet" type="text/css" />
+    
+    <link href="<%= ResolveUrl("~/Content/all.min.css") %>" rel="stylesheet" type="text/css" />
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    
     <style>
         * { font-family: 'Poppins', sans-serif; }
 
         body {
-            background-color: #f8fafc; /* Gris/Blanc très clair et moderne */
-            color: #0f172a; /* Écriture Noir/Anthracite (plus doux que le noir pur) */
+            background-color: #f8fafc; 
+            color: #0f172a; 
             font-size: 15px;
             line-height: 1.6;
         }
 
-/* NAVBAR EMIT (Couleur officielle unie et épurée) */
+        /* NAVBAR EMIT */
         .navbar {
-            background: #0d47a1; /* Le vrai bleu royal officiel EMIT */
+            background: #0d47a1; 
             box-shadow: 0 4px 12px rgba(13, 71, 161, 0.2);
             padding: 14px 0;
-            border-bottom: 4px solid #093170; /* Bordure basse bleu foncé pour le relief */
+            border-bottom: 4px solid #093170; 
         }
         .navbar-brand {
             font-weight: 700;
@@ -37,21 +40,18 @@
             letter-spacing: 0.3px;
         }
 
-        /* AJUSTEMENT PROFESSIONNEL POUR LE LOGO EN IMAGE */
         .brand-logo-emit {
             width: auto;
-            height: 42px; /* Hauteur ajustée pour s'aligner proprement avec le texte */
+            height: 42px; 
             display: flex;
             align-items: center;
             justify-content: center;
-            }
+        }
         .brand-logo-emit img {
             max-height: 100%;
             width: auto;
             object-fit: contain;
-
-            /* AJOUTE CETTE LIGNE ICI POUR LE RENDRE ROND */
-            border-radius: 50%; /* Arrondit parfaitement les angles */
+            border-radius: 50%; 
         }
 
         .brand-text-main {
@@ -63,7 +63,7 @@
         }
         .brand-text-sub {
             font-size: 0.72rem;
-            color: #e2e8f0; /* Blanc cassé discret pour le sous-titre */
+            color: #e2e8f0; 
             font-weight: 400;
             letter-spacing: 0.5px;
         }
@@ -80,11 +80,11 @@
         }
         .nav-link:hover {
             color: #ffffff !important;
-            background: rgba(255, 255, 255, 0.15); /* Effet de survol blanc transparent très propre */
+            background: rgba(255, 255, 255, 0.15); 
         }
         .nav-link.active {
             color: #ffffff !important;
-            background: #093170; /* Fond bleu sombre pour l'onglet actif */
+            background: #093170; 
             font-weight: 600;
         }
 
@@ -94,7 +94,7 @@
             padding: 40px 0;
         }
 
-        /* TITRES DE PAGES (Style Universitaire) */
+        /* TITRES DE PAGES */
         .page-title {
             color: #0f172a;
             font-weight: 700;
@@ -120,10 +120,10 @@
             color: #64748b;
             font-size: 0.92rem;
             margin-bottom: 28px;
-            padding-left: 58px; /* Aligné proprement sous le texte du titre */
+            padding-left: 58px; 
         }
 
-        /* CARDS (Plus sobres, sans dégradés agressifs) */
+        /* CARDS */
         .card {
             background: #ffffff;
             border: 1px solid #e2e8f0;
@@ -181,7 +181,7 @@
             box-shadow: 0 4px 12px rgba(13, 71, 161, 0.3);
         }
 
-        /* CALENDRIER FULLCALENDAR (Harmonisé EMIT) */
+        /* CALENDRIER FULLCALENDAR */
         #calendar {
             background: #ffffff;
             padding: 24px;
@@ -204,17 +204,17 @@
             background: #093170 !important;
         }
         .fc-day-today {
-            background: rgba(13, 71, 161, 0.04) !important; /* Indicateur aujourd'hui discret */
+            background: rgba(13, 71, 161, 0.04) !important; 
         }
 
-        /* FOOTER (Noir / Bleu EMIT) */
+        /* FOOTER */
         footer {
-            background: #0f172a; /* Fond noir/anthracite du site EMIT */
+            background: #0f172a; 
             color: #94a3b8;
             padding: 24px 0;
             text-align: center;
             font-size: 0.82rem;
-            border-top: 4px solid #0d47a1; /* Rappel du Bleu en haut */
+            border-top: 4px solid #0d47a1; 
         }
         footer .footer-emit {
             color: #ffffff;
@@ -228,7 +228,6 @@
             color: #94a3b8;
         }
 
-        /* SCROLLBAR COMPATIBILITÉ */
         ::-webkit-scrollbar { width: 6px; }
         ::-webkit-scrollbar-track { background: #f1f5f9; }
         ::-webkit-scrollbar-thumb { background: #0d47a1; border-radius: 3px; }
@@ -237,20 +236,17 @@
 </head>
 <body>
 
-  
-
-    <!-- NAVBAR -->
     <nav class="navbar navbar-expand-lg">
         <div class="container">
-                <a class="navbar-brand" href="~/EmploiDuTemps.aspx" runat="server">
-                        <div class="brand-logo-emit">
-                            <img src="<%= ResolveUrl("~/Images/logo_emit.png") %>" alt="Logo EMIT" />
-                        </div>
-                        <div>
-                            <div class="brand-text-main">EMIT</div>
-                            <div class="brand-text-sub">Gestion Emploi du Temps</div>
-                        </div>
-                    </a>
+            <a class="navbar-brand" href="~/EmploiDuTemps.aspx" runat="server">
+                <div class="brand-logo-emit">
+                    <img src="<%= ResolveUrl("~/Images/logo_emit.png") %>" alt="Logo EMIT" />
+                </div>
+                <div>
+                    <div class="brand-text-main">EMIT</div>
+                    <div class="brand-text-sub">Gestion Emploi du Temps</div>
+                </div>
+            </a>
             <button class="navbar-toggler border-0" type="button" 
                     data-bs-toggle="collapse" data-bs-target="#navMenu">
                 <i class="fas fa-bars text-white"></i>
@@ -295,7 +291,6 @@
         </div>
     </form>
 
-    <!-- FOOTER -->
     <footer>
         <div class="container">
             <div class="footer-emit">
@@ -303,7 +298,7 @@
             </div>
             <div class="footer-sub">
                 École de Management et d'Innovation Technologique — 
-                Université de Fianarantsoa &copy; 2025
+                Université de Fianarantsoa &copy; <%= DateTime.Now.Year %>
             </div>
             <div class="footer-sub">
                 Système de Gestion d'Emploi du Temps — Groupe 31
@@ -311,7 +306,8 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="<%= ResolveUrl("~/Scripts/bootstrap.bundle.min.js") %>"></script>
+    <script src="<%= ResolveUrl("~/Scripts/fullcalendar.global.min.js") %>"></script>
     <asp:ContentPlaceHolder ID="ScriptContent" runat="server" />
 </body>
 </html>
