@@ -1,0 +1,372 @@
+﻿<%@ Page Title="Accueil" Language="C#" 
+    MasterPageFile="~/Site.Master" 
+    AutoEventWireup="true" 
+    CodeBehind="Default.aspx.cs" 
+    Inherits="GSE.Default" %>
+
+<asp:Content ID="HeadContent" ContentPlaceHolderID="HeadContent" runat="server">
+    <style>
+        .hero-section {
+            background: linear-gradient(135deg, #0d1b3e 0%, #1a3a6e 60%, #2952a3 100%);
+            border-radius: 20px;
+            padding: 60px 40px;
+            color: white;
+            margin-bottom: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 400px;
+            height: 400px;
+            background: rgba(74, 144, 217, 0.1);
+            border-radius: 50%;
+        }
+        .hero-section::after {
+            content: '';
+            position: absolute;
+            bottom: -30%;
+            right: 10%;
+            width: 250px;
+            height: 250px;
+            background: rgba(74, 144, 217, 0.08);
+            border-radius: 50%;
+        }
+        .hero-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
+        }
+        .hero-subtitle {
+            font-size: 1rem;
+            opacity: 0.8;
+            margin-bottom: 28px;
+            max-width: 500px;
+            line-height: 1.7;
+        }
+        .hero-btn {
+            background: white;
+            color: #0d1b3e;
+            border: none;
+            border-radius: 12px;
+            padding: 12px 28px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        .hero-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+            color: #0d1b3e;
+        }
+        .hero-btn-outline {
+            background: rgba(255,255,255,0.15);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 12px;
+            padding: 12px 28px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s;
+            margin-left: 12px;
+        }
+        .hero-btn-outline:hover {
+            background: rgba(255,255,255,0.25);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* STAT CARDS */
+        .stat-card {
+            background: white;
+            border-radius: 16px;
+            padding: 24px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.2s;
+            height: 100%;
+        }
+        .stat-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        .stat-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.4rem;
+            margin-bottom: 16px;
+        }
+        .stat-number {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #0d1b3e;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+        .stat-label {
+            font-size: 0.85rem;
+            color: #64748b;
+            font-weight: 500;
+        }
+        .stat-link {
+            font-size: 0.82rem;
+            font-weight: 600;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            margin-top: 14px;
+            transition: gap 0.2s;
+        }
+        .stat-link:hover { gap: 8px; }
+
+        /* QUICK ACCESS */
+        .quick-card {
+            background: white;
+            border-radius: 16px;
+            padding: 22px;
+            border: 1px solid #e2e8f0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            text-decoration: none;
+            color: #1a1a2e;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            transition: all 0.2s;
+        }
+        .quick-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            color: #0d1b3e;
+            border-color: #4a90d9;
+        }
+        .quick-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            flex-shrink: 0;
+        }
+        .quick-title {
+            font-weight: 700;
+            font-size: 0.95rem;
+            margin-bottom: 2px;
+        }
+        .quick-sub {
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+
+        /* SECTION TITLE */
+        .section-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #0d1b3e;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .section-title::after {
+            content: '';
+            flex: 1;
+            height: 2px;
+            background: linear-gradient(90deg, #e2e8f0, transparent);
+            margin-left: 8px;
+        }
+    </style>
+</asp:Content>
+
+<asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
+
+    <div class="hero-section">
+        <div style="position:relative; z-index:1;">
+            <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
+                <span style="background:rgba(74,144,217,0.3); color:#4a90d9; 
+                             padding:4px 14px; border-radius:20px; font-size:0.8rem; 
+                             font-weight:600; letter-spacing:0.5px;">
+                    EMIT — Université de Fianarantsoa
+                </span>
+            </div>
+            <h1 class="hero-title">
+                Bienvenue sur le Système<br/>
+                de Gestion d'Emploi du Temps
+            </h1>
+            <p class="hero-subtitle">
+                Gerez facilement les emplois du temps, les salles de cours, 
+                les professeurs et les filières de l'EMIT.
+            </p>
+            <a href="EmploiDuTemps.aspx" class="hero-btn">
+                <i class="fa-solid fa-calendar-days"></i>
+                Voir l'emploi du temps
+            </a>
+            <a href="Dashboard.aspx" class="hero-btn-outline">
+                <i class="fa-solid fa-chart-pie"></i>
+                Dashboard
+            </a>
+        </div>
+    </div>
+
+    <div class="section-title">
+        <i class="fa-solid fa-chart-simple" style="color:#4a90d9;"></i>
+        Statistiques générales
+    </div>
+    <div class="row g-4 mb-4">
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-icon" style="background:#eef4ff;">
+                    <i class="fa-solid fa-book-open" style="color:#0d1b3e;"></i>
+                </div>
+                <div class="stat-number">
+                    <asp:Label ID="lblNbCours" runat="server" Text="0"/>
+                </div>
+                <div class="stat-label">Cours cette semaine</div>
+                <a href="EmploiDuTemps.aspx" class="stat-link" style="color:#0d1b3e;">
+                    Voir le calendrier <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-icon" style="background:#f0fdf4;">
+                    <i class="fa-solid fa-door-open" style="color:#059669;"></i>
+                </div>
+                <div class="stat-number" style="color:#059669;">
+                    <asp:Label ID="lblNbSalles" runat="server" Text="0"/>
+                </div>
+                <div class="stat-label">Salles disponibles</div>
+                <a href="Salles.aspx" class="stat-link" style="color:#059669;">
+                    Gérer les salles <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-icon" style="background:#fdf4ff;">
+                    <i class="fa-solid fa-chalkboard-user" style="color:#9333ea;"></i>
+                </div>
+                <div class="stat-number" style="color:#9333ea;">
+                    <asp:Label ID="lblNbProfs" runat="server" Text="0"/>
+                </div>
+                <div class="stat-label">Professeurs</div>
+                <a href="Professeurs.aspx" class="stat-link" style="color:#9333ea;">
+                    Voir les profs <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="stat-card">
+                <div class="stat-icon" style="background:#fff7ed;">
+                    <i class="fa-solid fa-graduation-cap" style="color:#ea580c;"></i>
+                </div>
+                <div class="stat-number" style="color:#ea580c;">
+                    <asp:Label ID="lblNbFilieres" runat="server" Text="0"/>
+                </div>
+                <div class="stat-label">Filières</div>
+                <a href="Filieres.aspx" class="stat-link" style="color:#ea580c;">
+                    Voir les filières <i class="fa-solid fa-arrow-right"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-title">
+        <i class="fa-solid fa-bolt" style="color:#4a90d9;"></i>
+        Accès rapide
+    </div>
+    <div class="row g-3">
+        <div class="col-md-4">
+            <a href="EmploiDuTemps.aspx" class="quick-card">
+                <div class="quick-icon" style="background:#eef4ff;">
+                    <i class="fa-solid fa-calendar-days" style="color:#0d1b3e;"></i>
+                </div>
+                <div>
+                    <div class="quick-title">Emploi du Temps</div>
+                    <div class="quick-sub">Voir et gérer le planning</div>
+                </div>
+                <i class="fa-solid fa-chevron-right ms-auto" style="color:#cbd5e1;"></i>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="Salles.aspx" class="quick-card">
+                <div class="quick-icon" style="background:#f0fdf4;">
+                    <i class="fa-solid fa-door-open" style="color:#059669;"></i>
+                </div>
+                <div>
+                    <div class="quick-title">Gestion des Salles</div>
+                    <div class="quick-sub">Ajouter et modifier les salles</div>
+                </div>
+                <i class="fa-solid fa-chevron-right ms-auto" style="color:#cbd5e1;"></i>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="Professeurs.aspx" class="quick-card">
+                <div class="quick-icon" style="background:#fdf4ff;">
+                    <i class="fa-solid fa-chalkboard-user" style="color:#9333ea;"></i>
+                </div>
+                <div>
+                    <div class="quick-title">Gestion des Professeurs</div>
+                    <div class="quick-sub">Gérer les enseignants</div>
+                </div>
+                <i class="fa-solid fa-chevron-right ms-auto" style="color:#cbd5e1;"></i>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="Filieres.aspx" class="quick-card">
+                <div class="quick-icon" style="background:#fff7ed;">
+                    <i class="fa-solid fa-graduation-cap" style="color:#ea580c;"></i>
+                </div>
+                <div>
+                    <div class="quick-title">Gestion des Filières</div>
+                    <div class="quick-sub">Gérer les filières et classes</div>
+                </div>
+                <i class="fa-solid fa-chevron-right ms-auto" style="color:#cbd5e1;"></i>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="Dashboard.aspx" class="quick-card">
+                <div class="quick-icon" style="background:#f0f9ff;">
+                    <i class="fa-solid fa-chart-line" style="color:#0284c7;"></i>
+                </div>
+                <div>
+                    <div class="quick-title">Dashboard</div>
+                    <div class="quick-sub">Statistiques et graphiques</div>
+                </div>
+                <i class="fa-solid fa-chevron-right ms-auto" style="color:#cbd5e1;"></i>
+            </a>
+        </div>
+        <div class="col-md-4">
+            <a href="EmploiDuTemps.aspx" class="quick-card">
+                <div class="quick-icon" style="background:#fff1f2;">
+                    <i class="fa-solid fa-file-pdf" style="color:#e11d48;"></i>
+                </div>
+                <div>
+                    <div class="quick-title">Export PDF</div>
+                    <div class="quick-sub">Télécharger l'emploi du temps</div>
+                </div>
+                <i class="fa-solid fa-chevron-right ms-auto" style="color:#cbd5e1;"></i>
+            </a>
+        </div>
+    </div>
+
+</asp:Content>

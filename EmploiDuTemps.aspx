@@ -167,9 +167,23 @@
                     .catch(err => failureCallback(err));
                 },
                 eventClick: function (info) {
-                    alert('Cours : ' + info.event.title + 
-                          '\nSalle : ' + info.event.extendedProps.salle +
-                          '\nProf : ' + info.event.extendedProps.prof);
+                    document.getElementById('modalDetailTitre').innerText = info.event.title;
+                    document.getElementById('modalDetailProf').innerText = info.event.extendedProps.prof;
+                    document.getElementById('modalDetailSalle').innerText = info.event.extendedProps.salle;
+                    document.getElementById('modalDetailFiliere').innerText = info.event.extendedProps.filiere;
+
+                    var debut = info.event.start;
+                    var fin = info.event.end;
+                    var options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                    var heureDebut = debut.getHours() + 'h' + (debut.getMinutes() < 10 ? '0' : '') + debut.getMinutes();
+                    var heureFin = fin ? fin.getHours() + 'h' + (fin.getMinutes() < 10 ? '0' : '') + fin.getMinutes() : '';
+
+                    document.getElementById('modalDetailDate').innerText = debut.toLocaleDateString('fr-FR', options);
+                    document.getElementById('modalDetailHeure').innerText = heureDebut + ' — ' + heureFin;
+                    document.getElementById('modalDetailCouleur').style.background = info.event.backgroundColor;
+
+                    var modal = new bootstrap.Modal(document.getElementById('modalDetail'));
+                    modal.show();
                 }
             });
             calendar.render();
