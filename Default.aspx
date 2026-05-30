@@ -6,85 +6,110 @@
 
 <asp:Content ID="HeadContent" ContentPlaceHolderID="HeadContent" runat="server">
     <style>
-        .hero-section {
-            background: linear-gradient(135deg, #0d1b3e 0%, #1a3a6e 60%, #2952a3 100%);
-            border-radius: 20px;
-            padding: 60px 40px;
-            color: white;
-            margin-bottom: 32px;
-            position: relative;
-            overflow: hidden;
+        /* HERO COMPONENT */
+        .hero-container {
+            position: relative; 
+            border-radius: 20px; 
+            overflow: hidden; 
+            margin-bottom: 32px; 
+            min-height: 480px;
         }
-        .hero-section::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            right: -10%;
-            width: 400px;
-            height: 400px;
-            background: rgba(74, 144, 217, 0.1);
-            border-radius: 50%;
+        .hero-bg-img {
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            z-index: 0;
         }
-        .hero-section::after {
-            content: '';
-            position: absolute;
-            bottom: -30%;
-            right: 10%;
-            width: 250px;
-            height: 250px;
-            background: rgba(74, 144, 217, 0.08);
-            border-radius: 50%;
+        .hero-overlay {
+            position: absolute; 
+            top: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 100%;
+            /* Modification 1 : Opacité réduite pour mieux voir le bâtiment en arrière-plan */
+            background: linear-gradient(135deg, 
+                rgba(13, 27, 62, 0.75) 0%, 
+                rgba(26, 58, 110, 0.55) 50%,
+                rgba(13, 27, 62, 0.45) 100%);
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative; 
+            z-index: 2; 
+            padding: 70px 50px;
+        }
+        .hero-badge {
+            background: rgba(74, 144, 217, 0.25); 
+            color: #4a90d9;
+            border: 1px solid rgba(74, 144, 217, 0.4);
+            padding: 6px 18px; 
+            border-radius: 30px; 
+            font-size: 0.82rem; 
+            font-weight: 600; 
+            letter-spacing: 1px; 
+            text-transform: uppercase;
+            display: inline-block;
+            margin-bottom: 20px;
         }
         .hero-title {
-            font-size: 2.2rem;
-            font-weight: 800;
-            margin-bottom: 12px;
-            letter-spacing: -0.5px;
+            font-size: 2.8rem; 
+            font-weight: 800; 
+            color: white;
+            line-height: 1.2; 
+            margin-bottom: 16px; 
+            letter-spacing: -0.5px; 
+            text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+        }
+        .hero-title span {
+            color: #4a90d9;
         }
         .hero-subtitle {
-            font-size: 1rem;
-            opacity: 0.8;
-            margin-bottom: 28px;
-            max-width: 500px;
-            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.9); 
+            font-size: 1rem; 
+            margin-bottom: 32px; 
+            max-width: 650px; 
+            line-height: 1.8;
+            text-shadow: 0 1px 5px rgba(0,0,0,0.4);
         }
-        .hero-btn {
-            background: white;
-            color: #0d1b3e;
+        .hero-btn-primary {
+            background: white; 
+            color: #0d1b3e; 
             border: none;
-            border-radius: 12px;
-            padding: 12px 28px;
-            font-weight: 700;
-            font-size: 0.95rem;
+            border-radius: 12px; 
+            padding: 14px 30px; 
+            font-weight: 700; 
+            font-size: 0.95rem; 
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
+            display: inline-flex; 
+            align-items: center; 
             gap: 8px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.25);
             transition: all 0.2s;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
-        .hero-btn:hover {
+        .hero-btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.25);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
             color: #0d1b3e;
         }
-        .hero-btn-outline {
-            background: rgba(255,255,255,0.15);
+        .hero-btn-secondary {
+            background: rgba(74, 144, 217, 0.2); 
             color: white;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-radius: 12px;
-            padding: 12px 28px;
-            font-weight: 600;
-            font-size: 0.95rem;
+            border: 2px solid rgba(74, 144, 217, 0.5);
+            border-radius: 12px; 
+            padding: 14px 30px; 
+            font-weight: 600; 
+            font-size: 0.95rem; 
             text-decoration: none;
-            display: inline-flex;
-            align-items: center;
+            display: inline-flex; 
+            align-items: center; 
             gap: 8px;
             transition: all 0.2s;
-            margin-left: 12px;
         }
-        .hero-btn-outline:hover {
-            background: rgba(255,255,255,0.25);
+        .hero-btn-secondary:hover {
+            background: rgba(74, 144, 217, 0.3);
             color: white;
             transform: translateY(-2px);
         }
@@ -198,39 +223,51 @@
 </asp:Content>
 
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
+    
+    <div class="hero-container">
+        
+        <img src="<%= ResolveUrl("~/Images/battiment.jpg") %>" 
+             alt="EMIT Fianarantsoa" 
+             class="hero-bg-img" />
+        
+        <div class="hero-overlay"></div>
 
-    <div class="hero-section">
-        <div style="position:relative; z-index:1;">
-            <div style="display:flex; align-items:center; gap:10px; margin-bottom:16px;">
-                <span style="background:rgba(74,144,217,0.3); color:#4a90d9; 
-                             padding:4px 14px; border-radius:20px; font-size:0.8rem; 
-                             font-weight:600; letter-spacing:0.5px;">
-                    EMIT — Université de Fianarantsoa
-                </span>
-            </div>
-            <h1 class="hero-title">
-                Bienvenue sur le Système<br/>
-                de Gestion d'Emploi du Temps
-            </h1>
-            <p class="hero-subtitle">
-                Gerez facilement les emplois du temps, les salles de cours, 
-                les professeurs et les filières de l'EMIT.
-            </p>
-            <a href="EmploiDuTemps.aspx" class="hero-btn">
-                <i class="fa-solid fa-calendar-days"></i>
-                Voir l'emploi du temps
-            </a>
-            <a href="Dashboard.aspx" class="hero-btn-outline">
-                <i class="fa-solid fa-chart-pie"></i>
-                Dashboard
-            </a>
+        <div class="hero-content">
+            <div class="row align-items-center" style="min-height:340px;">
+                
+                <div class="col-md-10">
+                    <div class="hero-badge">
+                        <i class="fas fa-university me-2"></i>EMIT — Université de Fianarantsoa
+                    </div>
+
+                    <h1 class="hero-title">
+                        Système de Gestion<br/>
+                        <span>d'Emploi du Temps</span>
+                    </h1>
+
+                    <p class="hero-subtitle">
+                        Gérez facilement les emplois du temps, les salles, 
+                        les professeurs et les filières de l'EMIT en temps réel.
+                    </p>
+
+                    <div class="d-flex gap-3 flex-wrap">
+                        <a href="EmploiDuTemps.aspx" class="hero-btn-primary">
+                            <i class="fas fa-calendar-week"></i>Voir l'emploi du temps
+                        </a>
+                        <a href="Dashboard.aspx" class="hero-btn-secondary">
+                            <i class="fas fa-chart-bar"></i>Dashboard
+                        </a>
+                    </div>
+                </div>
+
+                </div>
         </div>
     </div>
 
     <div class="section-title">
-        <i class="fa-solid fa-chart-simple" style="color:#4a90d9;"></i>
-        Statistiques générales
+        <i class="fa-solid fa-chart-simple" style="color:#4a90d9;"></i>Statistiques générales
     </div>
+    
     <div class="row g-4 mb-4">
         <div class="col-md-3">
             <div class="stat-card">
@@ -246,6 +283,7 @@
                 </a>
             </div>
         </div>
+        
         <div class="col-md-3">
             <div class="stat-card">
                 <div class="stat-icon" style="background:#f0fdf4;">
@@ -260,6 +298,7 @@
                 </a>
             </div>
         </div>
+        
         <div class="col-md-3">
             <div class="stat-card">
                 <div class="stat-icon" style="background:#fdf4ff;">
@@ -274,6 +313,7 @@
                 </a>
             </div>
         </div>
+        
         <div class="col-md-3">
             <div class="stat-card">
                 <div class="stat-icon" style="background:#fff7ed;">
@@ -291,9 +331,9 @@
     </div>
 
     <div class="section-title">
-        <i class="fa-solid fa-bolt" style="color:#4a90d9;"></i>
-        Accès rapide
+        <i class="fa-solid fa-bolt" style="color:#4a90d9;"></i>Accès rapide
     </div>
+    
     <div class="row g-3">
         <div class="col-md-4">
             <a href="EmploiDuTemps.aspx" class="quick-card">
@@ -307,6 +347,7 @@
                 <i class="fa-solid fa-chevron-right ms-auto" style="color:#cbd5e1;"></i>
             </a>
         </div>
+        
         <div class="col-md-4">
             <a href="Salles.aspx" class="quick-card">
                 <div class="quick-icon" style="background:#f0fdf4;">
@@ -319,6 +360,7 @@
                 <i class="fa-solid fa-chevron-right ms-auto" style="color:#cbd5e1;"></i>
             </a>
         </div>
+        
         <div class="col-md-4">
             <a href="Professeurs.aspx" class="quick-card">
                 <div class="quick-icon" style="background:#fdf4ff;">
@@ -331,6 +373,7 @@
                 <i class="fa-solid fa-chevron-right ms-auto" style="color:#cbd5e1;"></i>
             </a>
         </div>
+        
         <div class="col-md-4">
             <a href="Filieres.aspx" class="quick-card">
                 <div class="quick-icon" style="background:#fff7ed;">
@@ -343,6 +386,7 @@
                 <i class="fa-solid fa-chevron-right ms-auto" style="color:#cbd5e1;"></i>
             </a>
         </div>
+        
         <div class="col-md-4">
             <a href="Dashboard.aspx" class="quick-card">
                 <div class="quick-icon" style="background:#f0f9ff;">
@@ -355,6 +399,7 @@
                 <i class="fa-solid fa-chevron-right ms-auto" style="color:#cbd5e1;"></i>
             </a>
         </div>
+        
         <div class="col-md-4">
             <a href="EmploiDuTemps.aspx" class="quick-card">
                 <div class="quick-icon" style="background:#fff1f2;">
