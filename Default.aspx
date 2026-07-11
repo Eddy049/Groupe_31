@@ -14,27 +14,39 @@
             margin-bottom: 32px; 
             min-height: 480px;
         }
-        .hero-bg-img {
-            position: absolute; 
-            top: 0; 
-            left: 0; 
-            width: 100%; 
-            height: 100%; 
-            object-fit: cover; 
-            z-index: 0;
-        }
         .hero-overlay {
             position: absolute; 
             top: 0; 
             left: 0; 
             width: 100%; 
             height: 100%;
-            /* Modification 1 : Opacité réduite pour mieux voir le bâtiment en arrière-plan */
             background: linear-gradient(135deg, 
-                rgba(13, 27, 62, 0.75) 0%, 
-                rgba(26, 58, 110, 0.55) 50%,
-                rgba(13, 27, 62, 0.45) 100%);
+                #0d1b3e 0%, 
+                #16305f 45%,
+                #1a3a6e 75%,
+                #245296 100%);
             z-index: 1;
+            overflow: hidden;
+        }
+        .hero-overlay::before {
+            content: '';
+            position: absolute;
+            top: -60px;
+            right: -60px;
+            width: 320px;
+            height: 320px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(74, 144, 217, 0.35) 0%, transparent 70%);
+        }
+        .hero-overlay::after {
+            content: '';
+            position: absolute;
+            bottom: -100px;
+            left: 10%;
+            width: 400px;
+            height: 400px;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(74, 144, 217, 0.2) 0%, transparent 70%);
         }
         .hero-content {
             position: relative; 
@@ -224,14 +236,9 @@
 
 <asp:Content ID="MainContent" ContentPlaceHolderID="MainContent" runat="server">
     
-    <div class="hero-container">
-        
-        <img src="<%= ResolveUrl("~/Images/battiment.jpg") %>" 
-             alt="EMIT Fianarantsoa" 
-             class="hero-bg-img" />
+<div class="hero-container">
         
         <div class="hero-overlay"></div>
-
         <div class="hero-content">
             <div class="row align-items-center" style="min-height:340px;">
                 
@@ -239,17 +246,14 @@
                     <div class="hero-badge">
                         <i class="fas fa-university me-2"></i>EMIT — Université de Fianarantsoa
                     </div>
-
                     <h1 class="hero-title">
                         Système de Gestion<br/>
                         <span>d'Emploi du Temps</span>
                     </h1>
-
                     <p class="hero-subtitle">
                         Gérez facilement les emplois du temps, les salles, 
                         les professeurs et les filières de l'EMIT en temps réel.
                     </p>
-
                     <div class="d-flex gap-3 flex-wrap">
                         <a href="EmploiDuTemps.aspx" class="hero-btn-primary">
                             <i class="fas fa-calendar-week"></i>Voir l'emploi du temps
@@ -259,7 +263,6 @@
                         </a>
                     </div>
                 </div>
-
                 </div>
         </div>
     </div>
