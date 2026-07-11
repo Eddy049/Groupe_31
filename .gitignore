@@ -24,3 +24,6 @@ bin/
 *.cache
 *.backup.json
 DocumentLayout.json
+# Base de données locale (incompatibilités de version entre machines)
+App_Data/*.mdf
+App_Data/*.ldf
