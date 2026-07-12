@@ -370,19 +370,7 @@
                             ErrorMessage="Le prénom est obligatoire."
                             CssClass="validator-msg" Display="Dynamic" />
                     </div>
-                    <div class="form-group">
-                        <label>Email *</label>
-                        <asp:TextBox ID="txtEmail" runat="server" placeholder="Ex: j.dupont@ecole.fr" />
-                        <asp:RequiredFieldValidator ID="rfvEmail" runat="server"
-                            ControlToValidate="txtEmail"
-                            ErrorMessage="L'email est obligatoire."
-                            CssClass="validator-msg" Display="Dynamic" />
-                        <asp:RegularExpressionValidator ID="revEmail" runat="server"
-                            ControlToValidate="txtEmail"
-                            ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
-                            ErrorMessage="Format d'email invalide."
-                            CssClass="validator-msg" Display="Dynamic" />
-                    </div>
+                
                     <div class="form-group">
                         <label>Matière *</label>
                         <asp:TextBox ID="txtMatiere" runat="server" placeholder="Ex: Mathématiques" />
@@ -454,25 +442,24 @@
                             <strong><%# Eval("Nom") %> <%# Eval("Prenom") %></strong>
                         </ItemTemplate>
                     </asp:TemplateField>
-                    <asp:BoundField DataField="Email" HeaderText="EMAIL" />
                     <asp:TemplateField HeaderText="MATIÈRE">
-                        <ItemTemplate>
-                            <span class="matiere-badge"><%# Eval("Matiere") %></span>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="ACTIONS">
-                        <ItemTemplate>
-                            <asp:Button ID="btnModifier" runat="server"
-                                Text="✏ Modifier"
-                                CssClass="btn-modifier"
-                                CommandName="Edit" />
-                            <asp:Button ID="btnSupprimer" runat="server"
-                                Text="🗑 Supprimer"
-                                CssClass="btn-supprimer"
-                                CommandName="Delete"
-                                OnClientClick="return confirm('Confirmer la suppression ?');" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
+    <ItemTemplate>
+        <span class="matiere-badge"><%# Eval("Specialite") %></span>
+    </ItemTemplate>
+</asp:TemplateField>
+<asp:TemplateField HeaderText="ACTIONS">
+    <ItemTemplate>
+        <asp:Button ID="btnModifier" runat="server"
+            Text="✏ Modifier"
+            CssClass="btn-modifier"
+            CommandName="Edit" />
+        <asp:Button ID="btnSupprimer" runat="server"
+            Text="🗑 Supprimer"
+            CssClass="btn-supprimer"
+            CommandName="Delete"
+            OnClientClick="return confirm('Confirmer la suppression ?');" />
+    </ItemTemplate>
+</asp:TemplateField>
                 </Columns>
             </asp:GridView>
         </div>

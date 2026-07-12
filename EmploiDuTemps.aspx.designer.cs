@@ -15,6 +15,15 @@ namespace GSE
     {
 
         /// <summary>
+        /// Contrôle lblMessage.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblMessage;
+
+        /// <summary>
         /// Contrôle ddlFiliere.
         /// </summary>
         /// <remarks>
@@ -42,6 +51,15 @@ namespace GSE
         protected global::System.Web.UI.WebControls.DropDownList ddlSalle;
 
         /// <summary>
+        /// Contrôle ddlFiliereAjout.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList ddlFiliereAjout;
+
+        /// <summary>
         /// Contrôle txtMatiere.
         /// </summary>
         /// <remarks>
@@ -51,22 +69,22 @@ namespace GSE
         protected global::System.Web.UI.WebControls.TextBox txtMatiere;
 
         /// <summary>
-        /// Contrôle txtProf.
+        /// Contrôle ddlProfesseurAjout.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtProf;
+        protected global::System.Web.UI.WebControls.DropDownList ddlProfesseurAjout;
 
         /// <summary>
-        /// Contrôle txtSalle.
+        /// Contrôle ddlSalleAjout.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtSalle;
+        protected global::System.Web.UI.WebControls.DropDownList ddlSalleAjout;
 
         /// <summary>
         /// Contrôle txtHeureDebut.
@@ -87,6 +105,15 @@ namespace GSE
         protected global::System.Web.UI.WebControls.TextBox txtHeureFin;
 
         /// <summary>
+        /// Contrôle hfIdCoursSelectionne.
+        /// </summary>
+        /// <remarks>
+        /// Champ généré automatiquement.
+        /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField hfIdCoursSelectionne;
+
+        /// <summary>
         /// Contrôle hfDateSelectionnee.
         /// </summary>
         /// <remarks>
@@ -96,13 +123,13 @@ namespace GSE
         protected global::System.Web.UI.WebControls.HiddenField hfDateSelectionnee;
 
         /// <summary>
-        /// Contrôle lblMessage.
+        /// Contrôle btnSupprimer.
         /// </summary>
         /// <remarks>
         /// Champ généré automatiquement.
         /// Pour modifier, déplacez la déclaration de champ du fichier de concepteur dans le fichier code-behind.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMessage;
+        protected global::System.Web.UI.WebControls.Button btnSupprimer;
 
         /// <summary>
         /// Contrôle btnAjouter.

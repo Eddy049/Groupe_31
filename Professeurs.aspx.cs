@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Configuration;
 using System.Data;
+using System.Data.SqlClient;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -7,6 +9,8 @@ namespace GSE
 {
     public partial class Professeurs : Page
     {
+        private string connStr = ConfigurationManager.ConnectionStrings["GSEConnection"].ConnectionString;
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -15,27 +19,26 @@ namespace GSE
 
         private void ChargerProfesseurs(string recherche)
         {
-            // TODO : remplacer par un vrai appel BDD
             DataTable dt = new DataTable();
-            dt.Columns.Add("Id");
-            dt.Columns.Add("Nom");
-            dt.Columns.Add("Prenom");
-            dt.Columns.Add("Email");
-            dt.Columns.Add("Matiere");
 
-            dt.Rows.Add(1, "Dupont", "Jean", "j.dupont@ecole.fr", "Mathématiques");
-            dt.Rows.Add(2, "Martin", "Sophie", "s.martin@ecole.fr", "Informatique");
-            dt.Rows.Add(3, "Bernard", "Luc", "l.bernard@ecole.fr", "Physique");
-
-            if (!string.IsNullOrEmpty(recherche))
+            using (SqlConnection con = new SqlConnection(connStr))
             {
-                string mot = recherche.ToLower();
-                DataView dv = dt.DefaultView;
-                dv.RowFilter = string.Format(
-                    "CONVERT(Nom, System.String) LIKE '%{0}%' OR " +
-                    "CONVERT(Prenom, System.String) LIKE '%{0}%' OR " +
-                    "CONVERT(Matiere, System.String) LIKE '%{0}%'", mot);
-                dt = dv.ToTable();
+                string query = @"SELECT Id, Nom, Prenom, Specialite 
+                                  FROM Professeurs
+                                  WHERE (@recherche = '' 
+                                         OR Nom LIKE '%' + @recherche + '%'
+                                         OR Prenom LIKE '%' + @recherche + '%'
+                                         OR Specialite LIKE '%' + @recherche + '%')";
+
+                using (SqlCommand cmd = new SqlCommand(query, con))
+                {
+                    cmd.Parameters.AddWithValue("@recherche", recherche ?? "");
+                    con.Open();
+                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
+                    {
+                        da.Fill(dt);
+                    }
+                }
             }
 
             GridViewProfesseurs.DataSource = dt;
@@ -66,16 +69,27 @@ namespace GSE
             {
                 string nom = txtNom.Text.Trim();
                 string prenom = txtPrenom.Text.Trim();
-                string email = txtEmail.Text.Trim();
-                string matiere = txtMatiere.Text.Trim();
+                string specialite = txtMatiere.Text.Trim();
 
-                // TODO : INSERT en base de données ici
+                using (SqlConnection con = new SqlConnection(connStr))
+                {
+                    string query = @"INSERT INTO Professeurs (Nom, Prenom, Specialite) 
+                                      VALUES (@nom, @prenom, @specialite)";
+                    using (SqlCommand cmd = new SqlCommand(query, con))
+                    {
+                        cmd.Parameters.AddWithValue("@nom", nom);
+                        cmd.Parameters.AddWithValue("@prenom", prenom);
+                        cmd.Parameters.AddWithValue("@specialite", specialite);
+                        con.Open();
+                        cmd.ExecuteNonQuery();
+                    }
+                }
 
                 lblSucces.Text = "✔ Professeur " + prenom + " " + nom + " ajouté avec succès !";
                 lblSucces.Visible = true;
                 lblErreur.Visible = false;
 
-                txtNom.Text = txtPrenom.Text = txtEmail.Text = txtMatiere.Text = "";
+                txtNom.Text = txtPrenom.Text = txtMatiere.Text = "";
                 pnlFormulaire.Visible = false;
                 btnToggleForm.Text = "+ Ajouter un professeur";
 
