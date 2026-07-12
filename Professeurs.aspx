@@ -125,16 +125,17 @@
             letter-spacing: 0.5px;
         }
 
-        .form-group input {
+        .form-group input, .form-group select {
             width: 100%;
             padding: 10px 14px;
             border: 1px solid #e2e8f0;
             border-radius: 8px;
             font-size: 14px;
             color: #334155;
+            background-color: white;
         }
 
-        .form-group input:focus {
+        .form-group input:focus, .form-group select:focus {
             border-color: #1a3a8f;
             outline: none;
             box-shadow: 0 0 0 3px #e8eeff;
@@ -271,13 +272,18 @@
             vertical-align: middle;
         }
 
-        .matiere-badge {
+        .matiere-badge, .filiere-badge {
             background-color: #e8eeff;
             color: #1a3a8f;
             padding: 3px 10px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
+        }
+        
+        .filiere-badge {
+            background-color: #f0fdf4;
+            color: #16a34a;
         }
 
         .btn-modifier {
@@ -334,7 +340,6 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div class="page-wrapper">
 
-        <!-- Header -->
         <div class="page-header">
             <div class="page-title">
                 <div class="icon-box">👨‍🏫</div>
@@ -345,11 +350,9 @@
                 CausesValidation="false" />
         </div>
 
-        <!-- Messages -->
         <asp:Label ID="lblSucces" runat="server" CssClass="message-succes" Visible="false" />
         <asp:Label ID="lblErreur" runat="server" CssClass="message-erreur" Visible="false" />
 
-        <!-- Formulaire caché -->
         <asp:Panel ID="pnlFormulaire" runat="server" Visible="false">
             <div class="form-card">
                 <h3>➕ Nouveau Professeur</h3>
@@ -371,24 +374,21 @@
                             CssClass="validator-msg" Display="Dynamic" />
                     </div>
                     <div class="form-group">
-                        <label>Email *</label>
-                        <asp:TextBox ID="txtEmail" runat="server" placeholder="Ex: j.dupont@ecole.fr" />
-                        <asp:RequiredFieldValidator ID="rfvEmail" runat="server"
-                            ControlToValidate="txtEmail"
-                            ErrorMessage="L'email est obligatoire."
-                            CssClass="validator-msg" Display="Dynamic" />
-                        <asp:RegularExpressionValidator ID="revEmail" runat="server"
-                            ControlToValidate="txtEmail"
-                            ValidationExpression="\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*"
-                            ErrorMessage="Format d'email invalide."
-                            CssClass="validator-msg" Display="Dynamic" />
-                    </div>
-                    <div class="form-group">
                         <label>Matière *</label>
                         <asp:TextBox ID="txtMatiere" runat="server" placeholder="Ex: Mathématiques" />
                         <asp:RequiredFieldValidator ID="rfvMatiere" runat="server"
                             ControlToValidate="txtMatiere"
                             ErrorMessage="La matière est obligatoire."
+                            CssClass="validator-msg" Display="Dynamic" />
+                    </div>
+                    <div class="form-group">
+                        <label>Filière *</label>
+                        <asp:DropDownList ID="ddlFiliere" runat="server">
+                        </asp:DropDownList>
+                        <asp:RequiredFieldValidator ID="rfvFiliere" runat="server"
+                            ControlToValidate="ddlFiliere"
+                            InitialValue="0"
+                            ErrorMessage="Veuillez sélectionner une filière."
                             CssClass="validator-msg" Display="Dynamic" />
                     </div>
                 </div>
@@ -402,7 +402,6 @@
             </div>
         </asp:Panel>
 
-        <!-- Stats -->
         <div class="stats-row">
             <div class="stat-card">
                 <div class="stat-icon">👨‍🏫</div>
@@ -421,7 +420,6 @@
             </div>
         </div>
 
-        <!-- Barre de recherche -->
         <div class="search-bar">
             <asp:TextBox ID="txtRecherche" runat="server"
                 placeholder=" Rechercher par nom, prénom ou matière..."
@@ -430,7 +428,6 @@
                 OnTextChanged="txtRecherche_TextChanged" />
         </div>
 
-        <!-- Table -->
         <div class="table-card">
             <div class="table-card-header">
                 <h3>Liste des Professeurs</h3>
@@ -439,42 +436,51 @@
                 </span>
             </div>
 
-            <asp:GridView ID="GridViewProfesseurs" runat="server"
-                CssClass="prof-table"
-                AutoGenerateColumns="False"
-                DataKeyNames="Id"
-                OnRowDeleting="GridViewProfesseurs_RowDeleting"
-                OnRowEditing="GridViewProfesseurs_RowEditing"
-                EmptyDataText="Aucun professeur trouvé."
-                GridLines="None">
-                <Columns>
-                    <asp:TemplateField HeaderText="PROFESSEUR">
-                        <ItemTemplate>
-                            <span class="avatar"><%# Eval("Nom").ToString().Substring(0,1).ToUpper() %><%# Eval("Prenom").ToString().Substring(0,1).ToUpper() %></span>
-                            <strong><%# Eval("Nom") %> <%# Eval("Prenom") %></strong>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:BoundField DataField="Email" HeaderText="EMAIL" />
-                    <asp:TemplateField HeaderText="MATIÈRE">
-                        <ItemTemplate>
-                            <span class="matiere-badge"><%# Eval("Matiere") %></span>
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                    <asp:TemplateField HeaderText="ACTIONS">
-                        <ItemTemplate>
-                            <asp:Button ID="btnModifier" runat="server"
-                                Text="✏ Modifier"
-                                CssClass="btn-modifier"
-                                CommandName="Edit" />
-                            <asp:Button ID="btnSupprimer" runat="server"
-                                Text="🗑 Supprimer"
-                                CssClass="btn-supprimer"
-                                CommandName="Delete"
-                                OnClientClick="return confirm('Confirmer la suppression ?');" />
-                        </ItemTemplate>
-                    </asp:TemplateField>
-                </Columns>
-            </asp:GridView>
+<asp:GridView ID="GridViewProfesseurs" runat="server"
+    CssClass="prof-table"
+    AutoGenerateColumns="False"
+    DataKeyNames="Id"
+    OnRowDeleting="GridViewProfesseurs_RowDeleting"
+    OnRowEditing="GridViewProfesseurs_RowEditing"
+    EmptyDataText="Aucun professeur trouvé."
+    GridLines="None">
+    <Columns>
+        <asp:TemplateField HeaderText="PROFESSEUR">
+            <ItemTemplate>
+                <span class="avatar">
+                    <%# (!string.IsNullOrEmpty(Eval("Nom").ToString()) ? Eval("Nom").ToString().Substring(0,1).ToUpper() : "") %><%# (!string.IsNullOrEmpty(Eval("Prenom").ToString()) ? Eval("Prenom").ToString().Substring(0,1).ToUpper() : "") %>
+                </span>
+                <strong><%# Eval("Nom") %> <%# Eval("Prenom") %></strong>
+            </ItemTemplate>
+        </asp:TemplateField>
+        
+        <asp:TemplateField HeaderText="MATIÈRE">
+            <ItemTemplate>
+                <span class="matiere-badge"><%# Eval("Specialite") %></span>
+            </ItemTemplate>
+        </asp:TemplateField>
+
+        <asp:TemplateField HeaderText="FILIÈRE">
+            <ItemTemplate>
+                <span class="filiere-badge"><%# Eval("NomFiliere") %></span>
+            </ItemTemplate>
+        </asp:TemplateField>
+
+        <asp:TemplateField HeaderText="ACTIONS">
+            <ItemTemplate>
+                <asp:Button ID="btnModifier" runat="server"
+                    Text="✏ Modifier"
+                    CssClass="btn-modifier"
+                    CommandName="Edit" />
+                <asp:Button ID="btnSupprimer" runat="server"
+                    Text="🗑 Supprimer"
+                    CssClass="btn-supprimer"
+                    CommandName="Delete"
+                    OnClientClick="return confirm('Confirmer la suppression ?');" />
+            </ItemTemplate>
+        </asp:TemplateField>
+    </Columns>
+</asp:GridView>
         </div>
 
     </div>

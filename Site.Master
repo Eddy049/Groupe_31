@@ -8,9 +8,7 @@
     <title>EMIT — Gestion Emploi du Temps</title>
     
     <link href="<%= ResolveUrl("~/Content/bootstrap.min.css") %>" rel="stylesheet" type="text/css" />
-    
     <link href="<%= ResolveUrl("~/Content/all.min.css") %>" rel="stylesheet" type="text/css" />
-    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
     
     <style>
@@ -23,7 +21,6 @@
             line-height: 1.6;
         }
 
-        /* NAVBAR EMIT */
         .navbar {
             background: #0d47a1; 
             box-shadow: 0 4px 12px rgba(13, 71, 161, 0.2);
@@ -88,13 +85,11 @@
             font-weight: 600;
         }
 
-        /* CONTENU DE LA PAGE */
         .main-content {
             min-height: calc(100vh - 160px);
             padding: 40px 0;
         }
 
-        /* TITRES DE PAGES */
         .page-title {
             color: #0f172a;
             font-weight: 700;
@@ -123,7 +118,6 @@
             padding-left: 58px; 
         }
 
-        /* CARDS */
         .card {
             background: #ffffff;
             border: 1px solid #e2e8f0;
@@ -142,7 +136,6 @@
             letter-spacing: 0.5px;
         }
 
-        /* COMPOSANTS FORMULAIRES */
         .form-label {
             font-size: 0.78rem;
             font-weight: 700;
@@ -165,7 +158,6 @@
             box-shadow: 0 0 0 3px rgba(13, 71, 161, 0.15);
         }
 
-        /* BOUTONS ACTIONS */
         .btn-primary {
             background: #0d47a1;
             border: none;
@@ -181,7 +173,6 @@
             box-shadow: 0 4px 12px rgba(13, 71, 161, 0.3);
         }
 
-        /* CALENDRIER FULLCALENDAR */
         #calendar {
             background: #ffffff;
             padding: 24px;
@@ -207,7 +198,6 @@
             background: rgba(13, 71, 161, 0.04) !important; 
         }
 
-        /* FOOTER */
         footer {
             background: #0f172a; 
             color: #94a3b8;
@@ -264,7 +254,8 @@
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="~/Salles.aspx" runat="server">
+                        <!-- ✅ CORRECTION ICI -->
+                        <a class="nav-link" href="~/Gestion_de_salle.aspx" runat="server">
                             <i class="fas fa-door-open"></i> Salles
                         </a>
                     </li>
